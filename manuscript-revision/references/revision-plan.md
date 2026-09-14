@@ -9,21 +9,31 @@ updated as each item lands, never reconstructed at the end.
    recommendation, and the starting point: word count, reference count, counts of figures,
    tables and equations in the submitted file. These make every later "+N words" claim
    checkable.
-2. **Working copies** — which files are being edited and which are the untouched baseline.
-   State plainly that no tracked changes are used and that the marked-up copy is produced
-   at the end by comparison.
+2. **Working copies** — every file being edited and the untouched baseline each is compared
+   against, including anonymised copies and the supplementary. State plainly that no
+   tracked changes are used and that the marked-up copy is produced at the end by
+   comparison. List here too any artifact outside the manuscript that will have to follow
+   it: a reproduction guide, a data deposit, a README that names table or figure numbers.
 3. **Status** — rewritten whenever the picture changes. What is complete, what remains.
-4. **What the reviewers said** — one paragraph per reviewer, in the reviewer's own terms.
+4. **What the previous round did**, when there was one. One paragraph: how the last round
+   answered its reviews, and whether these reviews are a verdict on that strategy rather
+   than on the paper. A round that answered a request for depth by adding evidence, or that
+   protected its length by moving material into the supplementary, will hear about it next
+   time. Naming this at the top is what tells the round what it is for.
+5. **What the reviewers said** — one paragraph per reviewer, in the reviewer's own terms.
    This is where a reviewer's underlying concern is named, which is often not what any
    single numbered comment says.
-5. **Comment inventory** — every comment given a stable id, `R2.4` for reviewer 2's fourth,
+6. **Comment inventory** — every comment given a stable id, `R2.4` for reviewer 2's fourth,
    with the comment in one line. Ids are used in every other document and never renumbered.
-6. **Consolidated items** — the work plan. See below.
-7. **Records for applied items** — what was actually done, filed as each item lands.
-8. **Open decisions** — questions only the author can settle, with the options and the
-   cost of each. Resolve these before the item that depends on them.
-9. **Appendix: reviewer comments verbatim** — so the letter can quote them without
-   returning to the decision email.
+7. **Consolidated items** — the work plan. See below.
+8. **Requested experiments** — when reviewers ask for new runs, one table triaging each:
+   run it, rebut it, or answer it from data already on disk. See
+   `references/new-evidence.md`.
+9. **Records for applied items** — what was actually done, filed as each item lands.
+10. **Open decisions** — questions only the author can settle, with the options and the
+    cost of each. Resolve these before the item that depends on them.
+11. **Appendix: reviewer comments verbatim** — so the letter can quote them without
+    returning to the decision email.
 
 ## Consolidating comments into items
 
@@ -67,6 +77,11 @@ When an item is applied, file a record. Include:
 - anything discovered that the plan did not predict, especially an error of the author's
   own, since that is exactly what a later reader will want to find
 - numbers verified against their source, with the source named
+- any code or data file changed for the item, and whether that change affects a reported
+  number
+
+The record is also what the close-out audit checks against. After the author's own pass
+over the manuscript, each record's wording is what tells you whether the item survived it.
 
 Use `scripts/plan_status.py --done <id> --record-file note.md --write` so the table row and
 the record stay consistent.

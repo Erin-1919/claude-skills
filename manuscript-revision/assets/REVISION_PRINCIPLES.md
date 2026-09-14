@@ -5,8 +5,14 @@ a round and edit the bracketed parts for the project.
 
 ## Working files
 
-- Edit only `[WORKING MANUSCRIPT]` and `[WORKING SUPPLEMENTARY]`. The submitted files stay
-  untouched as the comparison baseline.
+- Edit only the working copies listed in `revision.json`: `[WORKING FILES]`. The submitted
+  files stay untouched as the comparison baseline.
+- **Every change goes into every parallel copy in the same session** — the author-details
+  file and the anonymised one, the supplementary and its anonymised one. Never revise one
+  and leave the others for later.
+- Artifacts outside the manuscript follow it in the same round: `[REPRODUCTION GUIDE, DATA
+  DEPOSIT, README]`. Anything naming a table number, a figure number or a metric goes stale
+  when the manuscript changes.
 - **No tracked changes during revision.** The marked-up copy is produced at the end with
   Word's Compare. Tracked changes on while editing makes every script read the wrong text.
 - Flatten citation fields to plain text once, before editing starts, and make
@@ -34,6 +40,11 @@ a round and edit the bracketed parts for the project.
   another part of the manuscript.
 - State the source of each verified number in the record.
 - If a check uncovers an error the reviewer did not find, correct it and disclose it.
+- Every reported number must match an artifact on disk that a script produced. Never change
+  an input that was executed and keep the old output: re-run it, or leave the artifact
+  alone and note the discrepancy.
+- Code changed to answer a reviewer is committed separately from the manuscript edits, and
+  the record says whether the change affects a reported number.
 
 ## The letter
 

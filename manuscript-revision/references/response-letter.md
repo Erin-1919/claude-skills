@@ -51,6 +51,11 @@ instead. A reviewer accepts a reasoned "no" far more readily than a silent one.
 Where a comment was already answered by work done for another comment, say that and point
 to the other response rather than repeating it.
 
+**When numbering has shifted, say the old number.** If a table or figure was renumbered
+during the round, give it as "Table 6 (previously Table 5)" at its first mention in each
+reviewer's thread. The reviewer is reading against the version they reviewed. Their own
+comment numbering never changes.
+
 **Use the academic-writing skill for the prose.** The letter is read by the same people who
 read the paper.
 
@@ -85,3 +90,8 @@ the author's voice and must survive.
 - Run `verify_letter.py` after any round of manuscript edits, not only at the end. Quotes
   go stale silently when a sentence is reworded, a figure moves, or a citation is inserted
   into a quoted passage.
+- After the author's own pass over the whole manuscript, re-sync before anything else. That
+  pass reworded or cut text the letter quotes, and `verify_letter.py` is how you find which
+  responses now describe a manuscript that no longer says that. It reports a missing quote;
+  it cannot tell you the item was deleted, which is why the plan records are walked at the
+  same time.

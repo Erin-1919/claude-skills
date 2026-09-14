@@ -1,6 +1,6 @@
 ---
 name: manuscript-revision
-description: Revise an academic manuscript in response to peer review and write the point-by-point response letter. Use when the user has received reviewer comments, referee reports, or an editor's decision letter and wants to revise a paper, plan a revision, answer reviewers, write a rebuttal or response-to-reviewers letter, produce a marked-up copy, or work through revision items one by one. Covers consolidating comments into ordered work items, maintaining a revision plan, editing .docx files safely, keeping numbered citations in first-appearance order, and building the response letter as the work lands.
+description: Revise an academic manuscript in response to peer review and write the point-by-point response letter. Use when the user has received reviewer comments, referee reports, or an editor's decision letter and wants to revise a paper, plan a revision, answer reviewers, write a rebuttal or response-to-reviewers letter, produce a marked-up copy, or work through revision items one by one. Covers consolidating comments into ordered work items, maintaining a revision plan, triaging requested experiments, editing .docx files safely, keeping numbered citations in first-appearance order, and building the response letter as the work lands.
 ---
 
 # Manuscript revision
@@ -22,6 +22,8 @@ These hold throughout and override any local convenience.
 4. **Update the plan as each item lands**, not at the end, with `plan_status.py`.
 5. **Verify numbers against their source**, not against another part of the manuscript.
 6. **One item at a time.** Finish, record, then start the next.
+7. **Every change lands in every parallel copy** — manuscript, supplementary, and the
+   anonymised copy of each — in the same session.
 
 ## Setup, once per revision round
 
@@ -33,6 +35,14 @@ python $S/revision_config.py                            # confirm every path res
 
 `revision.json` holds the paths, the citation style and the letter's font and colour.
 Every script reads it, so nothing is hard-coded to a project.
+
+List **every** .docx the round edits under `documents`, each with the working copy and the
+submitted file it will be compared against. A round often carries more than two: a
+manuscript, a supplementary file, and an anonymised copy of each. Every change goes into
+all of them in the same session; deferring the parallel copy to later is how they diverge.
+
+Set `citation_style` to `numeric` or `author-date`. It decides whether the reference
+ordering check applies at all.
 
 Copy `assets/REVISION_PRINCIPLES.md` into the revision folder and edit it for the project.
 Ask the author to confirm it, since it records their standing preferences.
@@ -51,6 +61,14 @@ code where they are invisible.
 
 ### 1. Read the reviews and build the plan
 
+**If this is not the first round, read the previous round's plan and letter first.** What a
+reviewer objects to now is often the shape of the previous answer: evidence added where
+depth was wanted, material moved to the supplementary to protect the length, a claim
+softened into vagueness. Ask explicitly whether the new reviews are a verdict on the
+previous round's *strategy*, and say so in the plan's overview if they are, because it
+changes what this round is for. Note also which reviewers are new and which recommendations
+have shifted; a reviewer who accepted last time may not read the paper again.
+
 Read every comment and give each a stable id, `R2.4` for reviewer 2's fourth comment. Ids
 are used everywhere afterwards and are never renumbered.
 
@@ -67,6 +85,11 @@ arriving late may be asking for work already done.
 
 Surface anything only the author can decide as an open decision, with the options and the
 cost of each. Resolve it before starting the item that depends on it.
+
+Where reviewers ask for new runs, analyses or artifacts, triage them in the plan before
+scheduling any: run it, rebut it, or answer it from data already on disk. Read
+`references/new-evidence.md` — it carries the triage table, the provenance rules for
+reported numbers, and how to handle runs that are executed and then withdrawn.
 
 ### 2. Scaffold the letter
 
@@ -91,18 +114,27 @@ For each item, in plan order:
 5. Record the item: `python $S/plan_status.py --done C7 --record-file note.md --write`.
 6. Re-run the checks below.
 
+Apply every change to **all** the documents in `revision.json` in the same session, not
+just the one being read. Never revise the manuscript and leave its anonymised copy for
+later.
+
+For an item that produces new evidence, the artifact comes first and the prose cites it.
+Follow `references/new-evidence.md`: verify the number against the run that produced it,
+commit any code change separately from the manuscript edits, and record in the plan
+whether that change affects a reported number.
+
 When the author says they edited the letter, run `sync_letter.py --write` before anything
 else, so their wording is what gets built on.
 
 ### 4. Checks, after every item
 
 ```bash
-python $S/manage_references.py --check     # ordering and coverage
+python $S/manage_references.py --check     # numeric styles only; see below
 python $S/verify_letter.py                 # every quoted passage exists
 python $S/sync_letter.py                   # letter and answers agree
 ```
 
-If a reference was added or removed:
+If a reference was added or removed under a numeric style:
 
 ```bash
 python $S/manage_references.py --renumber --write
@@ -110,20 +142,49 @@ python $S/manage_references.py --renumber --write
 
 Renumbering changes markers the letter may quote, so run `verify_letter.py` afterwards.
 
-### 5. Re-audit when figures or tables change
+**Under an author-date style the reference scripts do not apply.** There is no
+first-appearance order to keep and nothing to renumber: the list is alphabetical and
+in-text citations carry names. Set `"citation_style": "author-date"` and drop
+`manage_references.py` from the per-item checks. What replaces it is a check the scripts
+cannot do: that every citation still resolves and that nothing was left as a placeholder.
+
+### 5. Re-audit when figures, tables or numbering change
 
 A change late in the round can falsify a response written early. After any change to a
 figure, a table or a number, re-read the responses that mention it. `verify_letter.py`
 catches stale quotes; it cannot catch a claim that is now untrue.
+
+Inserting or deleting a numbered object shifts everything after it. Treat the shift as its
+own pass and sweep all four places:
+
+1. **Captions** in the document the object lives in.
+2. **Every cross-reference** in the body, including the supplementary and any that fall
+   inside a passage the letter quotes.
+3. **External artifacts** that name the number: a reproduction guide, a data deposit
+   README, a repository README. List these in the plan at the start of the round.
+4. **The letter.** Say the old number once per reviewer thread, at the first mention,
+   as "(previously Table 5)". The reviewer is reading against the version they reviewed,
+   and reviewer comments keep their original numbering.
+
+An object left uncited by the shift is a finding, not a tidy-up: decide whether it is
+removed or whether a citation to it went missing.
 
 ### 6. Close out
 
 1. Language, numbering and markup pass: equation, table and figure numbering against their
    cross-references; abbreviations at first use; leftover markers; consistent ranges and
    spacing.
-2. Write the editor page and the per-reviewer summaries, last, against the finished
+2. **Audit the manuscript after the author's own pass.** The author reads the whole
+   document at the end and edits it in Word, for concision, language, or length. That pass
+   is not tracked and it deletes things. Walk the plan item by item and confirm each item's
+   recorded text is still in the manuscript. In a live round this is what caught a sentence
+   a reviewer had specifically asked for having been cut, along with two dropped clauses
+   and two cross-references left pointing at the old numbering. Then re-sync the letter:
+   `verify_letter.py` will report every quote the pass reworded. Run the audit after **any**
+   author pass, not only the last one, and record what it recovered.
+3. Write the editor page and the per-reviewer summaries, last, against the finished
    manuscript. Each summary says what the revision does for *that reviewer's* comments.
-3. Produce the comparison baselines and hand over:
+4. Produce the comparison baselines and hand over:
 
 ```bash
 python $S/flatten_endnote.py --baseline --write

@@ -6,10 +6,14 @@
 **Starting point:** `[SUBMITTED FILE]` ([N] body words, [N] references, [N] figures,
 [N] tables, [N] equations).
 
-**Working copies (created [DATE]):** `[WORKING FILES]` — all editing happens here. The
-submitted files stay untouched as the comparison baseline. **No tracked changes** during
-revision; the marked-up copy is produced at the end by comparison. See
-`REVISION_PRINCIPLES.md` before touching either `.docx`.
+**Working copies (created [DATE]):** `[WORKING FILES — manuscript, supplementary, and the
+anonymised copy of each]` — all editing happens here, and every change goes into all of
+them in the same session. The submitted files stay untouched as the comparison baseline.
+**No tracked changes** during revision; the marked-up copy is produced at the end by
+comparison. See `REVISION_PRINCIPLES.md` before touching any `.docx`.
+
+**Artifacts outside the manuscript that must follow it:** `[REPRODUCTION GUIDE, DATA
+DEPOSIT, README — anything that names a table number, a figure number or a metric]`.
 
 **Response letter:** `[LETTER]` — every comment verbatim with placeholders, filled in as
 each item lands rather than at the end.
@@ -24,6 +28,11 @@ version, references, tables, figures. Rewrite this whenever the picture changes.
 ---
 
 ## 1. Overview
+
+### 1(0) What the previous round did  *(omit for a first revision)*
+
+[One paragraph: how the last round answered its reviews, and whether these reviews are a
+verdict on that strategy rather than on the paper. Then what this round is therefore for.]
 
 ### 1(a) What the reviewers said
 
@@ -79,13 +88,27 @@ decided, and anything found along the way is kept here.
 
 ---
 
-## 2. Open decisions
+## 2. Requested experiments  *(omit when no new runs are asked for)*
+
+| Requested experiment | Asked by | Feasible? | Decision |
+|---|---|---|---|
+| [what they asked for] | R3.2 | [cost, and what it needs first] | **run it** / **rebut — [why not comparable]** / **answer from data on disk — [which artifact]** |
+
+**Shared prerequisite:** [the one piece of engineering several items depend on. Build it
+first, as its own line.]
+
+**Withdrawn runs:** [runs executed and then not reported, where they are archived, and why
+no published number derives from them. Nothing about them goes in the letter.]
+
+---
+
+## 3. Open decisions
 
 **D1 — [question].** [Options, the cost of each, and what it blocks.]
 
 ---
 
-## 3. Length budget
+## 4. Length budget
 
 [Limit, current count, and which items are expected to add or remove words.]
 

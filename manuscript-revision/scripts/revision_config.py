@@ -4,6 +4,19 @@
 Every script in this skill reads its paths from one config file so that nothing is
 hard-coded to a project. Paths inside revision.json are relative to the directory holding
 revision.json. Scripts search upward from the working directory, or take --config.
+
+Documents. A round may carry any number of .docx targets: a manuscript, a supplementary
+file, an anonymised copy of each, a cover file. List them under "documents", each with the
+working copy that is edited and the submitted file it will be compared against:
+
+    "documents": [
+      {"name": "manuscript",    "working": "...", "baseline": "..."},
+      {"name": "supplementary", "working": "...", "baseline": "..."}
+    ]
+
+The older flat keys (manuscript, supplementary, baseline_manuscript,
+baseline_supplementary) are still read and become two documents, so an existing
+revision.json keeps working.
 """
 import io
 import json
@@ -13,10 +26,14 @@ import sys
 NAME = 'revision.json'
 
 TEMPLATE = {
-    'manuscript': 'paper/Manuscript_WORKING.docx',
-    'supplementary': None,
-    'baseline_manuscript': 'paper/Manuscript_SUBMITTED.docx',
-    'baseline_supplementary': None,
+    'documents': [
+        {'name': 'manuscript',
+         'working': 'paper/Manuscript_WORKING.docx',
+         'baseline': 'paper/Manuscript_SUBMITTED.docx'},
+        {'name': 'supplementary',
+         'working': 'paper/Supplementary_WORKING.docx',
+         'baseline': 'paper/Supplementary_SUBMITTED.docx'},
+    ],
     'letter': 'revision_plan/response_letter.docx',
     'answers': 'revision_plan/answers.py',
     'plan': 'revision_plan/REVISION_PLAN.md',
@@ -25,8 +42,10 @@ TEMPLATE = {
     'letter_style': {'font': 'Times New Roman', 'size_pt': 12, 'color': '3EAFC2'},
 }
 
-PATH_KEYS = ('manuscript', 'supplementary', 'baseline_manuscript',
-             'baseline_supplementary', 'letter', 'answers', 'plan', 'principles')
+PATH_KEYS = ('letter', 'answers', 'plan', 'principles')
+
+LEGACY = (('manuscript', 'manuscript', 'baseline_manuscript'),
+          ('supplementary', 'supplementary', 'baseline_supplementary'))
 
 
 def find(start=None):
@@ -43,6 +62,30 @@ def find(start=None):
         d = parent
 
 
+def _documents(cfg, root):
+    """Normalise to a list of {name, working, baseline} with absolute paths."""
+    items = []
+    for entry in cfg.get('documents') or []:
+        if not entry.get('working'):
+            continue
+        items.append({
+            'name': entry.get('name') or os.path.basename(entry['working']),
+            'working': os.path.join(root, entry['working']),
+            'baseline': os.path.join(root, entry['baseline']) if entry.get('baseline') else None,
+        })
+    if items:
+        return items
+    for name, work_key, base_key in LEGACY:      # revision.json written before documents
+        if cfg.get(work_key):
+            items.append({
+                'name': name,
+                'working': os.path.join(root, cfg[work_key]),
+                'baseline': (os.path.join(root, cfg[base_key])
+                             if cfg.get(base_key) else None),
+            })
+    return items
+
+
 def load(argv=None):
     argv = sys.argv if argv is None else argv
     path = None
@@ -55,6 +98,7 @@ def load(argv=None):
     for key in PATH_KEYS:
         value = cfg.get(key)
         cfg[key] = os.path.join(root, value) if value else None
+    cfg['documents'] = _documents(cfg, root)
     cfg.setdefault('letter_style', TEMPLATE['letter_style'])
     cfg.setdefault('citation_style', 'numeric')
     cfg['_root'] = root
@@ -63,8 +107,18 @@ def load(argv=None):
 
 
 def docs(cfg):
-    """The manuscript and, when there is one, the supplementary file."""
-    return [p for p in (cfg['manuscript'], cfg['supplementary']) if p]
+    """Every working copy, in the order they are listed."""
+    return [d['working'] for d in cfg['documents']]
+
+
+def baselines(cfg):
+    """Every submitted file that has one, for the end-of-round comparison."""
+    return [d['baseline'] for d in cfg['documents'] if d['baseline']]
+
+
+def numeric_citations(cfg):
+    """True when references are numbered, which is what manage_references.py handles."""
+    return str(cfg.get('citation_style', 'numeric')).lower().startswith('numer')
 
 
 def init(target_dir):
@@ -73,8 +127,9 @@ def init(target_dir):
         raise SystemExit('%s already exists' % path)
     with io.open(path, 'w', encoding='utf-8') as fh:
         fh.write(json.dumps(TEMPLATE, indent=2, ensure_ascii=False) + '\n')
-    print('wrote %s\nEdit the paths to match this project, then delete any key that '
-          'does not apply (for example supplementary).' % path)
+    print('wrote %s\nList every .docx this round edits under "documents" — manuscript, '
+          'supplementary, anonymised copies — and set citation_style to numeric or '
+          'author-date.' % path)
 
 
 if __name__ == '__main__':
@@ -84,6 +139,13 @@ if __name__ == '__main__':
     else:
         cfg = load()
         print('config: %s' % cfg['_config'])
+        if not cfg['documents']:
+            print('  no documents listed — add a "documents" list')
+        for d in cfg['documents']:
+            for role in ('working', 'baseline'):
+                if d[role]:
+                    mark = 'ok ' if os.path.exists(d[role]) else 'MISSING'
+                    print('  %-24s %s  %s' % ('%s (%s)' % (d['name'], role), mark, d[role]))
         for key in PATH_KEYS:
             if cfg.get(key):
                 mark = 'ok ' if os.path.exists(cfg[key]) else 'MISSING'

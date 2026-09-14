@@ -158,8 +158,7 @@ if __name__ == '__main__':
     cfg = revision_config.load()
     write = '--write' in sys.argv
     if '--baseline' in sys.argv:
-        pairs = [(p, baseline_name(p)) for p in
-                 (cfg['baseline_manuscript'], cfg['baseline_supplementary']) if p]
+        pairs = [(p, baseline_name(p)) for p in revision_config.baselines(cfg)]
         run(pairs, write, '')
         if write:
             print('Compare each _plaincite baseline against its working copy in Word.')

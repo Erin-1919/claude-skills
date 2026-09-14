@@ -5,6 +5,13 @@ Journals using numbered citations (MDPI, Elsevier numeric, IEEE) require the ref
 list to run in order of first appearance. Adding or removing one citation can renumber
 dozens, so never renumber by hand.
 
+Numeric styles only. Under an author-date style, such as Taylor & Francis or APA, there
+is no ordering to keep and nothing to renumber: the reference list is alphabetical and
+in-text citations carry names, not positions. Set "citation_style": "author-date" in
+revision.json and this script reports that it does not apply rather than scanning for
+markers it will never find. Neither --check nor --renumber is part of the per-item checks
+in that case.
+
     python manage_references.py --check
     python manage_references.py --renumber          # dry run, prints the mapping
     python manage_references.py --renumber --write
@@ -170,6 +177,12 @@ def renumber(path, write):
 
 if __name__ == '__main__':
     cfg = revision_config.load()
+    if not revision_config.numeric_citations(cfg):
+        print('citation_style is %s, so first-appearance ordering does not apply. '
+              'Under an author-date style the reference list is alphabetical and in-text '
+              'citations carry names, not positions. Skip this check.'
+              % cfg['citation_style'])
+        sys.exit(0)
     targets = revision_config.docs(cfg)
     if '--renumber' in sys.argv:
         renumber(targets[0], '--write' in sys.argv)
