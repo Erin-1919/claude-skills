@@ -13,3 +13,7 @@ desktop.ini
 # Local editor state
 .vscode/
 .idea/
+
+# Skill eval run artifacts (evals.json is the suite and IS tracked)
+eval-outputs/
+eval-report.json

@@ -1,0 +1,95 @@
+{
+  "skill": "manuscript-revision",
+  "cases": [
+    {
+      "id": "happy-1-reviews-arrived",
+      "prompt": "The referee reports on my journal paper just came back, major revision, three reviewers and a note from the editor. Where do I start?",
+      "tags": ["happy", "planning"],
+      "should_trigger": true,
+      "expect": ["R\\d[.\\s]\\d"],
+      "judge": "PASS if the reply tells the author to give each reviewer comment a stable identifier and to consolidate the comments into work items ordered so that rewriting the abstract, introduction or discussion happens only after the substantive changes are settled. FAIL if it proposes working through the comments one reviewer at a time in the order received, or says nothing about ordering. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-2-second-round",
+      "prompt": "Second time round with this journal. Last time we answered the reviewers by moving a lot of the methods detail into a supplementary file, and now one reviewer says the paper reads as fragmented. How should I plan this revision?",
+      "tags": ["happy", "cross-round"],
+      "should_trigger": true,
+      "expect": ["previous round|last round|round 1|first round", "strategy|approach|how .{0,20}answered"]
+    },
+    {
+      "id": "happy-3-requested-experiments",
+      "prompt": "One reviewer wants me to repeat every configuration to report variance, and another wants a benchmark against a competing framework. Do I actually have to run all of that before I can reply?",
+      "tags": ["happy", "new-evidence"],
+      "should_trigger": true,
+      "expect": ["rebut|rebuttal|decline", "already (have|logged|on disk)|existing (logs|runs|results)|data .{0,20}on disk"],
+      "forbid": ["you must run (all|every)"]
+    },
+    {
+      "id": "happy-4-author-date-refs",
+      "prompt": "My paper uses author-date citations, Taylor and Francis style. I added two references while revising. Do the reference numbers need fixing?",
+      "tags": ["happy", "citations", "edge", "no-op-risk"],
+      "should_trigger": true,
+      "expect": ["alphabetical|no numbers|not numbered|author.date"],
+      "forbid": ["renumber --write", "first.appearance order (is|must)"]
+    },
+    {
+      "id": "happy-5-author-own-pass",
+      "prompt": "I went through the whole manuscript myself last night in Word, cutting words to get under the page limit. Anything I should check before I send it back?",
+      "tags": ["happy", "close-out"],
+      "should_trigger": true,
+      "expect": ["quote|quoted", "record|plan|item", "deleted|dropped|cut|removed|missing"]
+    },
+    {
+      "id": "happy-6-numbering-shift",
+      "prompt": "I inserted a new table into section 3 of the paper I'm revising, so every table after it shifted by one. What do I need to go and fix?",
+      "tags": ["happy", "numbering"],
+      "should_trigger": true,
+      "expect": ["cross.reference", "caption", "previously Table|old number|previous number"]
+    },
+    {
+      "id": "neg-1-new-draft",
+      "prompt": "Help me draft the introduction section for a new paper on discrete global grid systems for methane inventories.",
+      "tags": ["negative", "adjacent"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-2-docx-extraction",
+      "prompt": "Open this Word document and pull all the tables out into a CSV for me.",
+      "tags": ["negative", "adjacent"],
+      "should_trigger": false,
+      "files": {"notes.md": "The report is in report.docx in this folder."}
+    },
+    {
+      "id": "neg-3-pr-review-comments",
+      "prompt": "I got a bunch of review comments on my pull request. Help me work through them and reply to the reviewer.",
+      "tags": ["negative", "keyword-overlap"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-4-cover-letter",
+      "prompt": "Write the cover letter to the editor for a paper we're submitting to a journal for the first time.",
+      "tags": ["negative", "keyword-overlap"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-5-grant-prose",
+      "prompt": "Tighten up the project summary of my grant proposal, it's too hedged and wordy.",
+      "tags": ["negative", "adjacent"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-6-thesis-formatting",
+      "prompt": "My thesis chapter has inconsistent heading styles and the figure captions are in the wrong font. Can you fix the formatting?",
+      "tags": ["negative", "superset"],
+      "should_trigger": false
+    },
+    {
+      "id": "happy-7-markup-copy",
+      "prompt": "I'm about to start making the changes the reviewers asked for. What's the best way to show them what I changed when I send it back?",
+      "tags": ["happy", "markup"],
+      "should_trigger": true,
+      "expect": ["compar(e|ing|ison)", "baseline|submitted (file|version)|original"],
+      "forbid": ["turn on track changes", "enable track changes", "with track changes (on|enabled)"]
+    }
+  ]
+}
