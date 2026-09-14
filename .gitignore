@@ -1,0 +1,15 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Packed skill archives (keep the unpacked folder instead)
+*.skill
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local editor state
+.vscode/
+.idea/

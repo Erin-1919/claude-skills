@@ -1,0 +1,105 @@
+{
+ "skill": "academic-writing",
+ "cases": [
+  {
+   "id": "pos-polish-methods",
+   "prompt": "polish the Methods paragraph in draft.md for the journal submission",
+   "tags": [
+    "happy"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "files": {
+    "draft.md": "We used a DGGS to aggregate the data. It worked well and gave good results.\n"
+   }
+  },
+  {
+   "id": "pos-draft-intro",
+   "prompt": "draft an introduction section for a journal article about DGGS accuracy in terrain modeling",
+   "tags": [
+    "happy"
+   ],
+   "should_trigger": true,
+   "require_trigger": true
+  },
+  {
+   "id": "pos-rewrite-para",
+   "prompt": "rewrite this paragraph so it reads like a peer-reviewed paper",
+   "tags": [
+    "happy"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "files": {
+    "draft.md": "Our method is really robust and leverages a myriad of intricate techniques.\n"
+   }
+  },
+  {
+   "id": "neg-readme",
+   "prompt": "write a README for this repository",
+   "tags": [
+    "negative",
+    "writing"
+   ],
+   "should_trigger": false,
+   "files": {
+    "main.py": "def run():\n    return 1\n"
+   }
+  },
+  {
+   "id": "neg-blog-post",
+   "prompt": "write a short blog post about my research for a general audience",
+   "tags": [
+    "negative",
+    "writing"
+   ],
+   "should_trigger": false
+  },
+  {
+   "id": "neg-email",
+   "prompt": "draft an email to my collaborator proposing we meet next Tuesday",
+   "tags": [
+    "negative",
+    "writing"
+   ],
+   "should_trigger": false
+  },
+  {
+   "id": "neg-docstrings",
+   "prompt": "write docstrings for the functions in main.py",
+   "tags": [
+    "negative",
+    "code"
+   ],
+   "should_trigger": false,
+   "files": {
+    "main.py": "def run(x):\n    return x*2\n"
+   }
+  },
+  {
+   "id": "neg-grant-summary",
+   "prompt": "help me tighten the Project Summary for my NSF proposal",
+   "tags": [
+    "negative",
+    "near-miss"
+   ],
+   "should_trigger": false,
+   "files": {
+    "draft.md": "This project will develop a novel DGGS framework.\n"
+   }
+  },
+  {
+   "id": "neg-summarize",
+   "prompt": "summarize the key findings of the paper in draft.md for me",
+   "tags": [
+    "negative",
+    "near-miss"
+   ],
+   "should_trigger": false,
+   "files": {
+    "draft.md": "We evaluated three grid systems. Accuracy was 84%, 79%, and 91%.\n"
+   }
+  }
+ ],
+ "_note": "Trigger eval. 3 positive / 6 negative. Baseline 2026-08-27: 96.3% overall, positives 89% trigger, negatives 0% false trigger. Known weak case: pos-rewrite-para (~67%) -- short revision phrasing that says 'paper' rather than 'journal' sometimes gets handled inline without loading the skill. Run: python ~/.claude/skills/skill-evals/scripts/run_evals.py evals.json --skill ~/.claude/skills/academic-writing --trials 5"
+}

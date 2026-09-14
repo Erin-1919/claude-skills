@@ -1,0 +1,76 @@
+{
+  "skill": "REPLACE-with-skill-directory-name",
+
+  "_comment": "5 positive + 5 negative is the floor. Write prompts as a USER would type them: vague, no skill name, no jargon copied from SKILL.md. Delete these _comment keys.",
+
+  "cases": [
+    {
+      "id": "happy-1",
+      "prompt": "A realistic, slightly vague user request that should invoke this skill.",
+      "tags": ["happy"],
+      "should_trigger": true,
+      "expect": ["regex the correct output must contain"],
+      "forbid": ["regex for the old\\/wrong pattern"]
+    },
+    {
+      "id": "happy-2",
+      "prompt": "Same intent, phrased completely differently.",
+      "tags": ["happy"],
+      "should_trigger": true,
+      "expect": [""]
+    },
+    {
+      "id": "happy-3-real-trace",
+      "prompt": "Copied verbatim from a real transcript or bug report.",
+      "tags": ["happy", "prod-trace"],
+      "should_trigger": true,
+      "expect": [""]
+    },
+    {
+      "id": "happy-4-with-context",
+      "prompt": "A request made against an existing project.",
+      "tags": ["happy"],
+      "should_trigger": true,
+      "files": {"README.md": "seed files for the isolated workspace"},
+      "expect": [""]
+    },
+    {
+      "id": "happy-5-hard",
+      "prompt": "The edge case you are least confident about.",
+      "tags": ["happy", "edge"],
+      "should_trigger": true,
+      "judge": "PASS if <the non-lexical condition>. FAIL otherwise. First line must be PASS or FAIL."
+    },
+
+    {
+      "id": "neg-1-adjacent-tech",
+      "prompt": "Same domain, different technology. Must NOT load the skill.",
+      "tags": ["negative"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-2-keyword-overlap",
+      "prompt": "Shares vocabulary with the skill description but is a different task.",
+      "tags": ["negative"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-3-generic",
+      "prompt": "A generic request in the broad category the skill sits inside.",
+      "tags": ["negative"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-4-unrelated",
+      "prompt": "Completely unrelated work.",
+      "tags": ["negative"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-5-superset",
+      "prompt": "A task the skill is a small part of, but which should be handled without it.",
+      "tags": ["negative"],
+      "should_trigger": false
+    }
+  ]
+}

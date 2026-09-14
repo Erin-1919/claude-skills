@@ -1,0 +1,88 @@
+{
+ "skill": "academic-writing",
+ "cases": [
+  {
+   "id": "p-underpin",
+   "prompt": "Draft an Introduction paragraph for a journal article explaining that digital elevation models are the foundation of hydrological modelling, viewshed analysis, and flood mapping. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "pressure"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "\\bunderpin",
+    ";(?![^()]*\\))"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "p-leverage",
+   "prompt": "Draft a Methods paragraph for a journal article explaining that our pipeline makes use of GPU acceleration and parallel tiling to speed up grid aggregation. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "pressure"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "\\bleverag",
+    "\\bharness",
+    ";(?![^()]*\\))"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "p-robust",
+   "prompt": "Draft a Discussion paragraph for a journal article arguing that our method performs reliably and smoothly across widely varied terrain types. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "pressure"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "\\brobust",
+    "\\bseamless",
+    ";(?![^()]*\\))"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "p-pivotal",
+   "prompt": "Draft a Discussion paragraph for a journal article arguing that discrete global grids represent an important turning point for geospatial data infrastructure. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "pressure"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "\\bpivotal",
+    "\\brealm\\b",
+    "\\blandscape",
+    ";(?![^()]*\\))"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "p-landscape-metaphor",
+   "prompt": "Draft a Discussion paragraph for a journal article surveying the current state of the geospatial software ecosystem and where the field is heading.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "pressure"
+   ],
+   "should_trigger": true,
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "forbid": [
+    "\\blandscape",
+    "\\brealm\\b",
+    ";(?![^()]*\\))"
+   ]
+  },
+  {
+   "id": "p-landscape-physical",
+   "prompt": "Draft a Methods paragraph for a journal article describing how drainage networks were derived across karst, glaciated, and arid badland terrain types.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "pressure"
+   ],
+   "should_trigger": true,
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "forbid": [
+    ";(?![^()]*\\))"
+   ]
+  }
+ ],
+ "_note": "Adversarial vocabulary eval. Each prompt describes a meaning whose most idiomatic word is on the banned list, so the failure reproduces often enough to measure a fix against. Baseline 2026-08-27: 100% (36 trials). p-landscape-physical is a known-weak check: it does not force the word, so it confirms nothing about whether the physical sense stayed available. Run: python ~/.claude/skills/skill-evals/scripts/run_evals.py evals-pressure.json --skill ~/.claude/skills/academic-writing --trials 6"
+}

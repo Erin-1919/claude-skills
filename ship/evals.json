@@ -1,0 +1,208 @@
+{
+ "skill": "ship",
+ "_note": "Trigger eval for the ship skill. 7 positive / 9 negative. Run: python ~/.claude/skills/skill-evals/scripts/run_evals.py evals.json --skill ~/.claude/skills/ship --trials 3. Baseline 2026-08-26: 16/16 cases, 48/48 trials, 100% trigger on positives, 0% false trigger on negatives.",
+ "cases": [
+  {
+   "id": "pos-canonical",
+   "prompt": "commit and push",
+   "tags": [
+    "happy"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "pos-ship-it",
+   "prompt": "ok ship it",
+   "tags": [
+    "happy"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "pos-vague-save",
+   "prompt": "save my work to github please",
+   "tags": [
+    "happy",
+    "vague"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "pos-scoped-dir",
+   "prompt": "commit and push the changes in ref/",
+   "tags": [
+    "happy",
+    "scoped"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && git add -A && git commit -qm init && echo new >> ref/sources.md",
+   "files": {
+    "ref/sources.md": "a\n",
+    "README.md": "# proj\n"
+   }
+  },
+  {
+   "id": "pos-push-remote",
+   "prompt": "push this to the remote repo",
+   "tags": [
+    "happy"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "neg-status-query",
+   "prompt": "what files have changed since my last commit?",
+   "tags": [
+    "negative",
+    "git-adjacent"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "neg-explain-rebase",
+   "prompt": "explain what git rebase does and when I should use it instead of merge",
+   "tags": [
+    "negative",
+    "git-adjacent"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init"
+  },
+  {
+   "id": "neg-show-log",
+   "prompt": "show me the last 3 commits",
+   "tags": [
+    "negative",
+    "git-adjacent"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo a > notes.md && git add -A && git commit -qm one && echo b >> notes.md && git commit -qam two && echo c >> notes.md && git commit -qam three"
+  },
+  {
+   "id": "neg-new-branch",
+   "prompt": "create a new branch called experiment and switch to it",
+   "tags": [
+    "negative",
+    "git-adjacent"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init"
+  },
+  {
+   "id": "neg-unrelated-code",
+   "prompt": "write a python function that parses a CSV and returns a list of dicts",
+   "tags": [
+    "negative",
+    "unrelated"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init"
+  },
+  {
+   "id": "hard-pos-pages",
+   "prompt": "publish the site update to Pages",
+   "tags": [
+    "hard",
+    "happy"
+   ],
+   "should_trigger": true,
+   "require_trigger": true,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n",
+    "index.html": "<h1>x</h1>\n"
+   }
+  },
+  {
+   "id": "hard-pos-done-for-day",
+   "prompt": "I'm done for the day, back this up",
+   "tags": [
+    "hard",
+    "ambiguous"
+   ],
+   "should_trigger": true,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "hard-neg-stage-only",
+   "prompt": "stage the changes in ref/ but don't commit them yet",
+   "tags": [
+    "hard",
+    "negative"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && git add -A && git commit -qm init && echo new >> ref/sources.md",
+   "files": {
+    "ref/sources.md": "a\n"
+   }
+  },
+  {
+   "id": "hard-neg-amend",
+   "prompt": "amend my last commit message to say 'Fix typo in notes'",
+   "tags": [
+    "hard",
+    "negative"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "hard-neg-msg-advice",
+   "prompt": "what would be a good commit message for this change?",
+   "tags": [
+    "hard",
+    "negative"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n"
+   }
+  },
+  {
+   "id": "hard-neg-docker-push",
+   "prompt": "push the docker image to the registry",
+   "tags": [
+    "hard",
+    "negative"
+   ],
+   "should_trigger": false,
+   "setup": "git init -q . && git config user.email t@t.t && git config user.name t && echo base > notes.md && git add -A && git commit -qm init && echo more >> notes.md",
+   "files": {
+    "notes.md": "base\n",
+    "Dockerfile": "FROM python:3.12\n"
+   }
+  }
+ ]
+}

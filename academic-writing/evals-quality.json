@@ -1,0 +1,168 @@
+{
+ "skill": "academic-writing",
+ "cases": [
+  {
+   "id": "q-intro",
+   "prompt": "Draft a two-paragraph Introduction for a journal article about DGGS accuracy in terrain modeling. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "quality"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    ";(?![^()]*\\))",
+    "\u2014",
+    "\\bleverage",
+    "\\bdelve",
+    "\\brealm\\b",
+    "\\bpivotal",
+    "\\bseamless",
+    "\\bmyriad",
+    "\\bunderscore",
+    "\\bshowcase",
+    "\\btapestry",
+    "\\bintricate",
+    "\\bunderpin",
+    "It is worth noting",
+    "It should be noted",
+    "Taken together"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "q-methods",
+   "prompt": "Draft a Methods paragraph for a journal paper describing how we aggregated elevation data onto an ISEA3H grid at resolution 9. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "quality"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    ";(?![^()]*\\))",
+    "\u2014",
+    "\\bleverage",
+    "\\bdelve",
+    "\\brealm\\b",
+    "\\bpivotal",
+    "\\bseamless",
+    "\\bmyriad",
+    "\\bunderscore",
+    "\\bshowcase",
+    "\\btapestry",
+    "\\bintricate",
+    "\\bunderpin",
+    "It is worth noting",
+    "It should be noted",
+    "Taken together"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "q-results",
+   "prompt": "Draft a Results paragraph for a journal paper reporting that three grid systems achieved 84%, 79%, and 91% classification accuracy. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "quality"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    ";(?![^()]*\\))",
+    "\u2014",
+    "\\bleverage",
+    "\\bdelve",
+    "\\brealm\\b",
+    "\\bpivotal",
+    "\\bseamless",
+    "\\bmyriad",
+    "\\bunderscore",
+    "\\bshowcase",
+    "\\btapestry",
+    "\\bintricate",
+    "\\bunderpin",
+    "It is worth noting",
+    "It should be noted",
+    "Taken together"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "q-discussion",
+   "prompt": "Draft a Discussion paragraph for a journal paper interpreting why an equal-area grid outperformed a quadtree on flood extent mapping. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "quality"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    ";(?![^()]*\\))",
+    "\u2014",
+    "\\bleverage",
+    "\\bdelve",
+    "\\brealm\\b",
+    "\\bpivotal",
+    "\\bseamless",
+    "\\bmyriad",
+    "\\bunderscore",
+    "\\bshowcase",
+    "\\btapestry",
+    "\\bintricate",
+    "\\bunderpin",
+    "It is worth noting",
+    "It should be noted",
+    "Taken together"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "q-abstract",
+   "prompt": "Draft an Abstract for a journal paper on serverless geospatial processing over a discrete global grid. Output only the draft prose.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "quality"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    ";(?![^()]*\\))",
+    "\u2014",
+    "\\bleverage",
+    "\\bdelve",
+    "\\brealm\\b",
+    "\\bpivotal",
+    "\\bseamless",
+    "\\bmyriad",
+    "\\bunderscore",
+    "\\bshowcase",
+    "\\btapestry",
+    "\\bintricate",
+    "\\bunderpin",
+    "It is worth noting",
+    "It should be noted",
+    "Taken together"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  },
+  {
+   "id": "q-revise",
+   "prompt": "Revise this paragraph for a journal submission. Output only the revised prose.\n\nOur novel method leverages a myriad of intricate techniques to deliver robust, seamless performance; it might suggest that DGGS approaches could underpin a pivotal shift in the realm of terrain modeling.\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "quality"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    ";(?![^()]*\\))",
+    "\u2014",
+    "\\bleverage",
+    "\\bdelve",
+    "\\brealm\\b",
+    "\\bpivotal",
+    "\\bseamless",
+    "\\bmyriad",
+    "\\bunderscore",
+    "\\bshowcase",
+    "\\btapestry",
+    "\\bintricate",
+    "\\bunderpin",
+    "It is worth noting",
+    "It should be noted",
+    "Taken together"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>"
+  }
+ ],
+ "_note": "Output-quality eval: 6 drafting/revision prompts checked against the rules SKILL.md declares absolute, plus the AI vocabulary ban. Three things this suite learned the hard way, all of which produced false failures: (1) a grouped citation (Sahr, 2003; Purss, 2016) is correct format, so the semicolon assert excludes parenthesised spans; (2) the agent's commentary around the draft is not the draft, so every prompt fences the deliverable and 'extract' scores only inside it; (3) one prompt swings +/-20 points at n=10, so aggregate across cases rather than adding trials to one case. Run: python ~/.claude/skills/skill-evals/scripts/run_evals.py evals-quality.json --skill ~/.claude/skills/academic-writing --trials 3"
+}
