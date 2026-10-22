@@ -1,0 +1,103 @@
+{
+  "skill": "academic-poster",
+  "cases": [
+    {
+      "id": "happy-1-paper-to-poster",
+      "prompt": "My paper got accepted and I need to bring a poster to the session next month. I have the manuscript PDF and a few figures. Can you help me put it together?",
+      "tags": ["happy", "workflow"],
+      "should_trigger": true,
+      "expect": ["pptx|powerpoint"],
+      "forbid": ["tikzposter|beamerposter|baposter"],
+      "judge": "PASS only if the reply does ALL of: (1) plans to draft the poster text or narrative first and have the author approve it before building the layout; (2) asks for or confirms the required poster size or venue requirements; (3) names an editable PowerPoint file plus a PDF as the deliverables. FAIL if any is missing. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-2-demo-poster",
+      "prompt": "for the demo track I need something to hang next to the laptop, landscape, 48 by 36. its basically a system demo with two use cases, I have screenshots of the UI",
+      "tags": ["happy", "demo"],
+      "should_trigger": true,
+      "expect": ["pptx|powerpoint"],
+      "forbid": ["tikzposter|beamerposter|baposter|I'd (make|build) it in latex"],
+      "judge": "PASS only if the reply gives the two use cases a parallel structure (the same sub-parts, such as data and setting, workflow, and screenshot, for each) and treats the real UI screenshots as the main visuals of the use-case panels. FAIL otherwise. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-3-big-size-edge",
+      "prompt": "The conference wants a 72 x 36 inch landscape board. I build these in PowerPoint. How should I set up the file?",
+      "tags": ["happy", "edge", "pptx-limit"],
+      "should_trigger": true,
+      "expect": ["56", "half|50 ?%", "200 ?%"]
+    },
+    {
+      "id": "happy-4-critique",
+      "prompt": "Here's the text plan for my GIScience poster: title, then Intro, Related Work, Research Questions, Methods, Data, Experiment 1, Experiment 2, Experiment 3, Discussion, Limitations, Future Work, Conclusion, References. Each section is about two paragraphs. Thoughts?",
+      "tags": ["happy", "critique"],
+      "should_trigger": true,
+      "judge": "PASS only if the reply does ALL of: (1) recommends consolidating into a small number of main sections (about 3 to 5, header and references not counted); (2) keeps explanatory paragraphs for the core sections, and does not tell the author to turn everything into bullets or to cut the poster to a few hundred words; (3) recommends a conclusion with a short memorable headline or a visually prominent conclusion band. FAIL if any is missing. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-5-overclaim",
+      "prompt": "For the poster conclusion banner I want: 'Our framework is validated to scale to the entire planet in real time.' We implemented it and ran it on two regional case studies. Good headline?",
+      "tags": ["happy", "claims", "edge"],
+      "should_trigger": true,
+      "forbid": ["^(yes|great|good headline)"],
+      "judge": "PASS only if the reply says the headline overclaims, explicitly separates what was implemented or demonstrated (two regional case studies) from what was validated or is future work (planetary, real-time scale), and offers at least one replacement headline that stays within what was shown. FAIL otherwise. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-6-poster-not-art",
+      "prompt": "Make me an A0 portrait poster for my methane detection research, I'll send the abstract and architecture diagram next",
+      "tags": ["happy", "overlap-canvas-design"],
+      "should_trigger": true,
+      "expect": ["pptx|powerpoint", "33\\.1|46\\.8"],
+      "forbid": ["tikzposter|beamerposter"]
+    },
+    {
+      "id": "happy-7-minimal-text",
+      "prompt": "Nobody reads posters, so I want mine to be basically just big figures and a few keywords. No paragraphs. Can you plan it that way?",
+      "tags": ["happy", "pushback"],
+      "should_trigger": true,
+      "judge": "PASS only if the reply pushes back on dropping all paragraphs, arguing that the poster must still explain the problem, approach and contribution when the presenter is absent, and proposes concise explanatory text alongside the large figures. FAIL if it simply agrees to a figures-and-keywords poster. First line must be PASS or FAIL."
+    },
+
+    {
+      "id": "neg-1-talk-slides",
+      "prompt": "I have a 15 minute conference talk on my paper next week. Can you outline a slide deck for it?",
+      "tags": ["negative", "adjacent-pptx"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-2-paper-figure",
+      "prompt": "I need a publication-quality bar chart with error bars for figure 3 of my manuscript, from a CSV of results.",
+      "tags": ["negative", "adjacent-figure"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-3-event-flyer",
+      "prompt": "Design a fun poster for our lab's Halloween potluck, something with pumpkins and bold colors.",
+      "tags": ["negative", "keyword-overlap"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-4-graphical-abstract",
+      "prompt": "The journal asks for a graphical abstract, one image summarizing the paper. What should go in it?",
+      "tags": ["negative", "adjacent"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-5-pptx-extract",
+      "prompt": "Pull all the text out of my old presentation slides.pptx into a markdown file.",
+      "tags": ["negative", "adjacent-pptx"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-6-unrelated",
+      "prompt": "Write a Python function that computes the Haversine distance between two lat/lon points.",
+      "tags": ["negative", "unrelated"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-7-paper-abstract",
+      "prompt": "Can you tighten the abstract of my conference paper to 150 words?",
+      "tags": ["negative", "adjacent-academic"],
+      "should_trigger": false
+    }
+  ]
+}

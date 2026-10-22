@@ -123,7 +123,8 @@ def _sh(cmd, cwd):
 def _judge(rubric, output, config_dir, model, timeout):
     prompt = (rubric + "\n\n--- OUTPUT UNDER TEST ---\n" + output[:20000] +
               "\n--- END ---\nFirst line must be exactly PASS or FAIL.")
-    with tempfile.TemporaryDirectory() as d:
+    # Windows: a lingering child process can lock the dir; don't crash the run
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as d:
         text, _ = _agent(prompt, Path(d), config_dir, model, timeout, readonly=True)
     lines = text.strip().splitlines()
     first = lines[0].upper() if lines else "FAIL"
@@ -197,8 +198,9 @@ def run_trial(case, skill_name, skills_on, cfg, model, timeout, readonly,
                      model, timeout)
         res["invoked"] = _invoked_skills(tools)
         if SAVE_DIR:
-            tag = "%s-t%d%s" % (case["id"], trial,
-                                 "" if res["pass"] else "-FAIL")
+            tag = "%s-%s-t%d%s" % ("skill" if skills_on else "base",
+                                    case["id"], trial,
+                                    "" if res["pass"] else "-FAIL")
             (SAVE_DIR / (tag + ".txt")).write_text(out, encoding="utf-8")
         return res
     finally:

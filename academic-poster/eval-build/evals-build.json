@@ -1,0 +1,27 @@
+{
+  "skill": "academic-poster",
+  "cases": [
+    {
+      "id": "build-a0-from-approved-text",
+      "prompt": "The poster text in poster_text.md is approved, no need to check it with me again. Please build the poster now, A0 portrait, and use arch.png as the architecture figure. Put the files in this folder.",
+      "tags": [
+        "happy",
+        "build"
+      ],
+      "should_trigger": true,
+      "files": {
+        "poster_text.md": "# Poster text (approved by the author, build from this)\n\nVenue: Spatial Computing Workshop 2026, poster P-14. Size: A0 portrait.\nAuthors: A. Author, B. Author. Affiliation: Example University, Department of Geomatics. Contact: a.author@example.edu\n\n## Title\nTopoGrid: Grid Topology as the Substrate for Multi-Agent Spatial Reasoning\n\n## 1. Background and Motivation\nLarge language models are increasingly used to reason about geographic phenomena, yet empirical studies show that they misjudge adjacency, containment, and distance decay. Multi-agent systems built on these models inherit the same weakness, because agents infer spatial relations from text. Existing agent-based grid models encode neighbourhoods explicitly but communicate only at one resolution, which limits multi-scale analysis.\n\n## 2. Approach\nTopoGrid binds each agent to a cell of a hierarchical discrete global grid. Feature agents represent observed entities such as methane sources and sensors; grid agents represent cells. Agents exchange messages only along grid relations: inward between a feature and its cell, lateral between neighbouring cells, and vertical between parent and child cells. Spatial relations therefore come from the grid structure, and the language model reasons only over the messages it receives.\n\n## 3. Architecture\nFigure: arch.png (system architecture, keep as supplied).\n\nTable: Communication channels\n| Channel | Relation | Typical message |\n| Inward | feature to cell | status report |\n| Lateral | cell to neighbour | anomaly alert |\n| Vertical | child to parent | aggregated summary |\n\n## 4. Demonstration\nWe ran TopoGrid on a two-week methane plume window over two counties, with 1,240 observed plumes. Grid agents escalated clustered detections to coarser cells and requested follow-up surveys at fine cells.\n\n## Conclusion\nHeadline: Topology carries the reasoning; the model carries the judgment.\nSupporting text: TopoGrid moves spatial relations out of the language model and into the grid, so agents reason over structurally correct messages. The methane demonstration shows multi-scale escalation emerging from local exchanges. Future work will evaluate the approach against centralized and peer-to-peer baselines.\n"
+      },
+      "setup": "python -c \"import fitz; d=fitz.open(); p=d.new_page(width=1600,height=900); p.draw_rect(fitz.Rect(100,100,700,400),color=(0,0,0),width=4); p.draw_rect(fitz.Rect(900,100,1500,400),color=(0,0,0),width=4); p.draw_rect(fitz.Rect(500,550,1100,800),color=(0,0,0),width=4); p.insert_text((150,260),'Feature agents',fontsize=48); p.insert_text((950,260),'Grid agents',fontsize=48); p.insert_text((550,690),'Parent cells',fontsize=48); p.get_pixmap(dpi=150).save('arch.png')\"",
+      "check": [
+        "python C:/Users/mlier/.claude/skills/academic-poster/eval-build/check_poster.py size 33.11 46.81",
+        "python C:/Users/mlier/.claude/skills/academic-poster/eval-build/check_poster.py pdf",
+        "python C:/Users/mlier/.claude/skills/academic-poster/eval-build/check_poster.py figure",
+        "python C:/Users/mlier/.claude/skills/academic-poster/eval-build/check_poster.py table",
+        "python C:/Users/mlier/.claude/skills/academic-poster/eval-build/check_poster.py headline",
+        "python C:/Users/mlier/.claude/skills/academic-poster/eval-build/check_poster.py minfont",
+        "python C:/Users/mlier/.claude/skills/academic-poster/eval-build/check_poster.py nooverflow"
+      ]
+    }
+  ]
+}

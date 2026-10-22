@@ -1,5 +1,5 @@
 ---
-name: manuscript-revision
+name: academic-manuscript-revision
 description: Revise an academic manuscript in response to peer review and write the point-by-point response letter. Use when the user has received reviewer comments, referee reports, or an editor's decision letter and wants to revise a paper, plan a revision, answer reviewers, write a rebuttal or response-to-reviewers letter, produce a marked-up copy, or work through revision items one by one. Covers consolidating comments into ordered work items, maintaining a revision plan, triaging requested experiments, editing .docx files safely, keeping numbered citations in first-appearance order, and building the response letter as the work lands.
 ---
 
