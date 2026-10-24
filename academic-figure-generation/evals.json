@@ -1,0 +1,91 @@
+{
+  "skill": "academic-figure-generation",
+  "cases": [
+    {
+      "id": "happy-1-categorical-levels",
+      "prompt": "For the paper I have prompt-token counts per run for three region sizes (130, 248 and 463 agents), four LLMs, and three routing conditions. Make me a figure showing how cost changes with the number of agents. Just give me the matplotlib script, the data is in a csv with columns model, agents, condition, tokens.",
+      "tags": ["happy", "prod-trace", "axis-type"],
+      "should_trigger": true,
+      "expect": ["matplotlib|plt\\."],
+      "judge": "PASS only if the script or plan puts the three agent counts on a categorical axis with equal spacing (for example tick positions 0,1,2 or string categories, grouped bars or points at labelled levels), NOT on a continuous numeric x axis at 130/248/463, AND aggregates the four LLMs into one summary per condition with a spread (min-max range, error bar, or similar) rather than one panel or line per model. FAIL otherwise. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-2-duplicates-table",
+      "prompt": "Table 2 in my manuscript already lists the answer accuracy for each of four models under the two conditions. Reviewers like visuals, so I want a grouped bar chart of those same accuracy numbers as Figure 4. Can you plan it?",
+      "tags": ["happy", "prod-trace", "table-vs-figure"],
+      "should_trigger": true,
+      "judge": "PASS only if the reply points out that the chart would repeat information already in Table 2 and either advises against it or proposes a figure that shows something the table does not (a trend, spread, ratio, or per-unit view). FAIL if it simply plans the duplicate grouped bar chart without raising the redundancy. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-3-caption",
+      "prompt": "write the caption for figure 3: it's a map of the study area near Fort St. John in northeastern British Columbia, showing rHEALPix grid cells at levels 5 to 7, three nested study regions, and the BCER oil and gas facilities that had leaks in 2023",
+      "tags": ["happy", "caption"],
+      "should_trigger": true,
+      "expect": ["Canada"],
+      "judge": "PASS only if the proposed caption is a single brief sentence (one sentence, roughly 30 words or fewer) that names the place with its country (British Columbia, Canada). FAIL if the caption runs to several sentences, states findings, or omits the country. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-4-renumber",
+      "prompt": "I'm cutting Figure 4 from my paper, so the old Figures 5 and 6 move up. What all do I need to change?",
+      "tags": ["happy", "renumber"],
+      "should_trigger": true,
+      "expect": ["rename|file ?name"],
+      "judge": "PASS only if the reply covers ALL of: renaming the figure image files (and their scripts) to the new numbers, updating every in-text citation including panel references such as 'Figure 6a', and deleting or retiring the dropped figure's file and script. FAIL if any is missing. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-5-quick-map",
+      "prompt": "I need a study-area map for my journal paper and I really don't want to fight with ArcGIS. I have the grid cells and the facility points as GeoJSON. Fastest way to get a decent-looking map image?",
+      "tags": ["happy", "map"],
+      "should_trigger": true,
+      "expect": ["html|mapbox|maplibre|leaflet|folium"],
+      "judge": "PASS only if the reply proposes generating a self-contained web map page (Mapbox GL, MapLibre, Leaflet, folium or similar) from the GeoJSON that the user screenshots, AND it includes a locator inset, a scale bar, and a legend among the map elements. FAIL otherwise. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-6-guard-fails",
+      "prompt": "my figure script has an assert that the central/topology ratio is between 1.25 and 1.265 because the paper says 1.26, but now it fails with 1.2651. just loosen the assert so the figure builds",
+      "tags": ["happy", "prod-trace", "guard"],
+      "should_trigger": true,
+      "expect": ["1\\.27"],
+      "judge": "PASS only if the reply notes that 1.2651 rounds to 1.27, so the paper's 1.26 is the likely error, and recommends correcting the text (or checking with the user) instead of only widening the assert. FAIL if it just loosens the assert without flagging the text. First line must be PASS or FAIL."
+    },
+    {
+      "id": "happy-7-baseline-scale",
+      "prompt": "Plot tokens per run for our three routing schemes next to a peer-to-peer flooding baseline. The flooding numbers are computed, not measured, and they're about 200 times bigger than ours. Bar chart for the paper.",
+      "tags": ["happy", "scale"],
+      "should_trigger": true,
+      "expect": ["log"],
+      "judge": "PASS only if the plan uses a logarithmic y axis labelled as such AND visually separates the computed flooding baseline from the measured schemes (for example grey or neutral fill, hatching, or a distinct style). FAIL otherwise. First line must be PASS or FAIL."
+    },
+
+    {
+      "id": "neg-1-drawio",
+      "prompt": "In my architecture.drawio file, add an arrow from the Grid agent box to the Feature agent box and label it 'directive'.",
+      "tags": ["negative", "overlap-draw-io"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-2-poster",
+      "prompt": "My paper was accepted and I need a 48 by 36 poster for the session. Can you start on it?",
+      "tags": ["negative", "overlap-poster"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-3-results-prose",
+      "prompt": "Tighten this results paragraph for my journal submission: 'The topology routing used fewer tokens than central routing in all cases, which is shown in Table 3, and the difference grew as the region got bigger.'",
+      "tags": ["negative", "overlap-writing"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-4-app-chart",
+      "prompt": "The plotly chart in my Streamlit app doesn't refresh when I pick a different sensor in the dropdown. How do I fix it?",
+      "tags": ["negative", "generic-chart"],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-5-docx",
+      "prompt": "Convert my manuscript docx to PDF and tell me how many pages it is.",
+      "tags": ["negative", "superset"],
+      "should_trigger": false
+    }
+  ]
+}

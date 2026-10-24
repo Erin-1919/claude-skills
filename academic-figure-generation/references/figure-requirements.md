@@ -29,7 +29,9 @@ Apply all of these before finalizing any figure. The user's instructions for a s
 
 ## 5. Captions and citation
 
-- Caption: one brief sentence stating what is shown, with panel letters where there are panels, for example "Prompt tokens per question wake (a), per event wake (b), and per run (c) for study regions of one, two, and four cells, as the mean and range over the four LLMs." No findings, no numbers absent from the text.
+- Caption: one brief sentence, about 25 words at most, naming only the main elements shown, with panel letters where there are panels. Leave details (grid levels, years, data sources, abbreviation expansions, symbology) to the text and legend; abbreviations defined in the text are used as is. Never trim the country from a place name ("British Columbia, Canada"). Write a plain sentence with "with" or "showing", never a colon list. No findings, no numbers absent from the text.
+  - Map: "Study area in northeastern British Columbia, Canada, with the three nested study regions and the BCER facilities." (17 words)
+  - Plot: "Prompt tokens per question wake (a), per event wake (b), and per run (c) for study regions of one, two, and four level-5 cells."
 - Every figure and table, including supplementary ones, is cited in the text. Grep for each "Figure N" and "Table N" before delivering.
 - Place names include the country ("British Columbia, Canada").
 
