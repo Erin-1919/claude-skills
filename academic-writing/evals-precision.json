@@ -1,0 +1,133 @@
+{
+ "skill": "academic-writing",
+ "cases": [
+  {
+   "id": "x-disc-precision",
+   "prompt": "Revise this Discussion paragraph for my journal paper. Keep roughly the same length.\n\nThe tiling results indicate that the spatial accuracy of the flood model depends on where its flood extents are computed. In the pixel condition, the model estimated extents from the pixel corners and gauge points in its input, and the scheduler then lets each worker merge the tiles it receives. In the grid condition, extents came from the cell hierarchy, and every worker produced consistent boundaries. This is consistent with earlier reports of boundary artefacts in tiled raster processing (Lee et al. 2021).\n\nWrap the revised prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "precision",
+    "discussion"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "spatial accuracy",
+    "\\bscheduler\\b",
+    "pixel corners",
+    "\\blets?\\b",
+    "where (its|the) flood extents are computed",
+    "tiling results",
+    ";(?![^()]*\\))",
+    "—"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "judge": "You are grading a revised Discussion paragraph from an academic paper. PASS only if ALL hold: (1) the first sentence states the finding as a general claim about how flood extents are derived (for example, estimated from raw coordinates versus derived from a grid structure), not as a claim about 'where' they are computed or about the 'spatial accuracy' of a model; (2) the internal software terms 'scheduler' and 'worker' are either removed or replaced by field terms; (3) geometric objects are named technically (for example, vertex coordinates of pixels) and not informally as 'corners'; (4) the paragraph reports no new numbers. Answer with PASS or FAIL on the first line, then one sentence of reasoning."
+  },
+  {
+   "id": "x-related-synthesis",
+   "prompt": "This Related Work paragraph reads like a list of papers. Can you fix it for the journal version?\n\nThe prevailing response couples deep learning with hydrodynamic simulation. Smith et al. (2020) trained a CNN emulator of a 2D shallow-water model. Chen et al. (2021) used a graph neural network on river networks. Patel et al. (2022) trained a U-Net on Sentinel-1 flood masks. Garcia et al. (2023) combined a U-Net with a physics loss. Kim et al. (2023) used a transformer for flood forecasting at gauges. Each of these studies operates on a fixed raster or graph at one resolution. A model that operates across resolutions is the opportunity this study takes up.\n\nWrap the revised prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "precision",
+    "related-work"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "opportunity this study takes up",
+    "\\bcouples?\\b",
+    "prevailing response",
+    ";(?![^()]*\\))",
+    "—"
+   ],
+   "expect": [
+    "\\([A-Z][a-z]+ (et al\\.|and [A-Z][a-z]+) \\d{4}[a-z]?,? (and )?[A-Z][a-z]+ (et al\\.|and [A-Z][a-z]+) \\d{4}"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "judge": "You are grading a revised Related Work paragraph. PASS only if ALL hold: (1) the studies are grouped by approach, with at least two sentences that each describe a general approach and cite two or more studies together in one parenthesis; (2) the paragraph does not proceed one paper per sentence for more than two consecutive sentences; (3) the closing gap sentence is plain and concrete, naming the limitation (single resolution) and what this study does about it, without stilted phrasing such as 'the opportunity this study takes up'. Answer with PASS or FAIL on the first line, then one sentence of reasoning."
+  },
+  {
+   "id": "x-intro-level",
+   "prompt": "Tighten this paragraph from my Introduction for the journal submission.\n\nLarge language models remain unreliable at geographic reasoning. On a benchmark of map-reading tasks, the best model answered 58% of questions correctly (Rao et al. 2024), and on route-planning questions accuracy fell to 31% (Ng et al. 2025). This study introduces RouteGrid, in which road segments are bound to hexagonal cells. The runtime precomputes segment adjacency with an H3 k-ring query of radius 2, caches it in Redis, and injects it into each prompt, so the model receives adjacency as facts. Because cell edge length at resolution 9 is about 174 m, a segment longer than 350 m is split before binding.\n\nWrap the revised prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "storyline",
+    "introduction"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "\\d+ ?%",
+    "\\bruntime\\b",
+    "Redis",
+    "k-ring",
+    "174",
+    "350",
+    ";(?![^()]*\\))",
+    "—"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "judge": "You are grading a revised Introduction paragraph. PASS only if ALL hold: (1) prior work is summarized generally, without benchmark percentages; (2) the approach is described at the level of components and relations (road segments bound to grid cells, adjacency provided to the model) without implementation details such as cache technology, query parameters, cell edge lengths, or splitting thresholds; (3) sentences are complete and read smoothly. Answer with PASS or FAIL on the first line, then one sentence of reasoning."
+  },
+  {
+   "id": "x-limitations",
+   "prompt": "Rewrite the limitations and future work subsection of my Discussion. My co-author thinks it sounds too negative.\n\nThis study has several shortcomings. The model fails to represent levees, so it cannot capture flood defences, as in the overtopping of the Elm Street levee during the 2019 event. The model also ignores rainfall forecasts. In addition, the evaluation covered only one river basin, which is a substantial limitation. Future research should incorporate levee geometry, assimilate rainfall forecasts, and model groundwater exchange. Further research is needed.\n\nWrap the revised prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "discussion",
+    "limitations"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "shortcoming",
+    "\\bfails? to\\b",
+    "substantial limitation",
+    "further research is needed",
+    "Elm Street",
+    ";(?![^()]*\\))",
+    "—"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "judge": "You are grading a rewritten Limitations and Future Research passage. PASS only if ALL hold: (1) limitations are stated as the scope of the current study, not as failures or shortcomings; (2) each future direction corresponds to a stated limitation, in the same order, and no future direction appears without a matching limitation (groundwater exchange either gets a matching scope statement or is dropped); (3) future directions are concrete and enumerated in prose (for example First, Second, Third); (4) no detailed single-event example is kept. Answer with PASS or FAIL on the first line, then one sentence of reasoning."
+  },
+  {
+   "id": "x-trim-architecture",
+   "prompt": "This System Architecture paragraph is way over my word budget. Cut it to about 90 words.\n\nThe ingestion service, implemented in ingest_worker.py, polls the gauge API every 300 seconds, retries failed requests up to five times with exponential backoff, and writes each reading as a JSON line to the readings/ directory. Each reading is bound to the grid cell that contains its gauge. Cell agents aggregate the readings of their child cells and report the aggregate to their parent cell. When an aggregate exceeds the alert threshold, the cell agent issues an alert to its neighbouring cells. Configuration lives in config.yaml, and logs rotate daily at midnight UTC. The orchestrator, in orchestrator.py, starts the agents in topological order and restarts any agent that exits.\n\nWrap the revised prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "storyline",
+    "trimming"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "\\.py\\b",
+    "config\\.yaml",
+    "backoff",
+    "\\bmidnight\\b",
+    "JSON",
+    ";(?![^()]*\\))",
+    "—"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "judge": "You are grading a trimmed System Architecture paragraph. PASS only if ALL hold: (1) it is between 60 and 115 words; (2) it keeps the core design (readings bound to cells, aggregation from child to parent cells, alerts to neighbouring cells) explained in complete sentences; (3) it removes the minor operational details entirely (file names, polling interval, retry policy, file formats, configuration, log rotation, restart policy) rather than compressing them into fragments. Answer with PASS or FAIL on the first line, then one sentence of reasoning."
+  },
+  {
+   "id": "x-results-story",
+   "prompt": "Write the Results paragraph for my grounding experiment, about 120 words. Here's what we have (Table 3 has the full numbers):\n\n- Grid-indexed condition: answer accuracy 0.95, prompt tokens 3.8 M per run, latency 2.1 s per call, cache hit rate 61%, 2 timeouts\n- Raw-coordinate condition: answer accuracy 0.62, prompt tokens 16.9 M per run, latency 3.4 s per call, cache hit rate 58%, 0 timeouts\n- Gap largest on three-step questions: 0.99 vs 0.08\n- Same pattern across all three models we tested\n\nWrap the draft prose between a line reading <<<DRAFT>>> and a line reading <<<END>>>. Put nothing else between those markers.",
+   "tags": [
+    "storyline",
+    "results"
+   ],
+   "should_trigger": true,
+   "forbid": [
+    "cache hit",
+    "timeout",
+    "remarkabl",
+    "striking",
+    ";(?![^()]*\\))",
+    "—"
+   ],
+   "expect": [
+    "0\\.95",
+    "0\\.62",
+    "Table 3"
+   ],
+   "extract": "<<<DRAFT>>>(.*?)<<<END>>>",
+   "judge": "You are grading a Results paragraph. PASS only if ALL hold: (1) it opens with the comparison it addresses and reports the accuracy and token comparisons that carry the claim; (2) it leaves out the cache hit rate and the timeouts, which do not serve that claim (latency may stay as a secondary cost); (3) it gives no mechanism or interpretation beyond at most one short sentence; (4) it uses the same name for each condition throughout. Answer with PASS or FAIL on the first line, then one sentence of reasoning."
+  }
+ ],
+ "_note": "Outcome eval for the storyline, precision, and per-section guidance added in commit 4960948. Every input is a novel faulty paragraph from a different paper, so the skill cannot pass by copying its own rewrites.md pairs. Regex forbids catch the lexical faults, and a binary judge checks the structural ones. Compare the skill versions by running each arm with --config-dir pointing at an isolated config that has only that version installed. Run: python ~/.claude/skills/skill-evals/scripts/run_evals.py evals-precision.json --skill ~/.claude/skills/academic-writing --trials 3 --config-dir <cfg> Baselines 2026-10-24, 3 trials, isolated config with Read allowed (without it, -p mode denies reading the reference files): pre-4960948 0% full pass / 0.55 regex asserts / 44% trigger; 4960948 0% / 0.78 / 67%; current 67% / 0.98 / 100%. Known strict case: x-trim-architecture keeps 'restarts any agent that exits'. Partial regex score: python ~/.claude/skills/skill-evals/scripts/score_asserts.py evals-precision.json <save-outputs dir>."
+}
