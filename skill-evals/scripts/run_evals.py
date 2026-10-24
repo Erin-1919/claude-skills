@@ -77,6 +77,8 @@ def _agent(prompt, cwd, config_dir, model, timeout, skills=True, readonly=True):
         if ev.get("type") == "result":
             final = ev.get("result") or final
         msg = ev.get("message") or {}
+        if not isinstance(msg, dict):
+            continue
         content = msg.get("content")
         if isinstance(content, list):
             for block in content:
