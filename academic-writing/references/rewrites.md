@@ -116,3 +116,64 @@ supports it. If the source says something narrower, the narrower version is the 
 | Storage has moved furthest in practice | storage is the most developed layer |
 | the harder ones to build on | without comparable tooling for loading, transforming, and analysing data |
 | the most advanced implementation | the named state the source reports |
+
+## Precision: corrections from the author's manuscript reviews
+
+Each pair below is a sentence the author rejected after it had passed the checklist. The faults are in word choice, so no mechanical scan catches them. Run the precision pass in SKILL.md.
+
+| Before | Fault | After |
+|---|---|---|
+| The grounding results indicate that the spatial accuracy of an LLM agent depends on where its spatial relations are computed. | "grounding results" is shorthand; "spatial accuracy" means positional accuracy of coordinates; an agent has no spatial accuracy; "where" names a location, not a method; the claim is narrowed to this study in an opening sentence | The results of the grounding experiment indicate that the reliability of spatial reasoning by LLM agents depends on whether spatial relations are inferred by the LLM or received as facts computed from a known spatial topology. |
+| the LLM derived relations from the cell corners and facility points in its prompt | informal geometry; a domain instance in a general claim | the LLM derived relations from the vertex coordinates of the cell polygons and the coordinates of the points in its prompt |
+| DGGS grounding compared with coordinate grounding | the second condition has no grounding | the DGGS-grounded condition compared with the coordinate-inference condition |
+| the runtime determines the recipients from cell identifiers | internal codebase term as subject | GridMind determines the recipients from the cell identifiers of the sender |
+| The prevailing response couples LLMs with external spatial computation. | figurative verb, vague subject, unresolved object | Recent studies connect LLM agents to external tools that compute spatial relations. |
+| The LLM of each agent observes incoming messages | which LLM, which messages, what "observes" does | When a message reaches an agent, the LLM observes it, reasons over it and the agent's memory, acts by selecting the agent's actions, and explains the decision in natural language. |
+| world channel | "channel" is reserved for the three DGGS channels | world events |
+| In GIScience, autonomous GIS has begun ... | "GIScience" used after GIS was defined as Geographic Information Science | the defined abbreviation, GIS, or a rephrase |
+| ... which makes a DGGS a foundation for geospatial software designed for these agents. | circumlocution for a named concept | ... which makes a DGGS a foundation for agent-friendly geospatial software. |
+| (Discussion) lets agents act, lets the grid provide | casual "let" constructions | allows, enables ... to, or the actor as subject |
+
+## Introduction: level of detail
+
+Before (implementation detail in an Introduction):
+
+> Because the cell area at each resolution is known, an observation with a spatial extent, such as a methane plume, can enter the hierarchy at the resolution whose cells match that extent. ... The runtime computes these relations with DGGS operators, so every agent receives them as facts.
+
+After: the Introduction names grid agents and feature agents and states that agents communicate along the DGGS topology. The entry-resolution point moved to the Discussion as one sentence, and the operator detail moved to the system description.
+
+Before (numbers repeated from Related Work):
+
+> On a benchmark of spatial cognition, the leading model answered fewer than one quarter of the questions correctly (Yang et al. 2025).
+
+After: a general statement with grouped citations ("Benchmarks report low accuracy of LLMs on spatial cognition and map-based reasoning (Yang et al. 2025, Dihan et al. 2025)"), with the numbers kept in Related Work only.
+
+Objectives, before and after:
+
+> Before: This study has three objectives, of which the first two examine (1) how ... and (2) how .... The third objective is to demonstrate (3) the architecture ...
+>
+> After: This study has three objectives. The first is to examine how ..., the second is to examine how ..., and the third is to demonstrate ...
+
+## Related Work: synthesis instead of inventory
+
+Before, one study per sentence:
+
+> GeoGPT plans sequences of GIS tool calls (Zhang et al. 2024), and GIS Copilot runs spatial analysis inside QGIS (Akinboyewa et al. 2025). Yang et al. (2025) raised spatial-cognition accuracy to 70.48% by coupling the LLM with deterministic GIS algorithms. GeoAgentic-RAG retrieves spatial data and decomposes queries across specialized agents (Liang et al. 2026) ...
+
+After, approaches with grouped citations:
+
+> These agents plan and execute workflows of GIS tool calls (Zhang et al. 2024, Akinboyewa et al. 2025, Li et al. 2025), pass spatial operations to deterministic GIS algorithms (Yang et al. 2025), or decompose geospatial questions across specialized agents and workflow graphs built on neighbourhood, hierarchy, and containment (Liang et al. 2026, Bao et al. 2026).
+
+Gap sentence, before (stilted) and after (plain):
+
+> Before: A substrate that holds the relations between queries and lets agents act on events as they occur is the opportunity this study takes up.
+>
+> After: GridMind keeps these relations as a persistent property of the grid, which every agent reads whenever it acts.
+
+## Limitations that lead into future research
+
+Before (self-critical, invites requests for new experiments): a list of what the study failed to model, with detailed case examples such as the assignment of a fire engine to a specific burning cell.
+
+After (scope stated softly, mapped one-to-one to future directions):
+
+> This study represents spatial features as points bound to the cells that contain them and coordinates responses at the resolution of grid cells. Environmental context ... informs a subset of agent decisions. The memory of each agent holds its typed state and recent messages within a single run. Future research will extend GridMind in these three respects. First, finer-grained features ... Second, each grid cell will integrate the environmental context of its area ... Third, memory management will extend the typed state toward a spatio-temporal memory ...
