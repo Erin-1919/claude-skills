@@ -5,6 +5,7 @@ Run every pass on every draft or revision before delivering. Each item is a mech
 ## Story and precision
 
 0a. **Storyline scan.** State the section's message in one sentence. For each paragraph, name the point it serves. Delete any paragraph or sentence that serves none, and confirm no detail appears in a section other than its home. Count words against the budget. → SKILL.md, Storyline and selection
+0c. **Terminology scan.** List the terms the paper repeats or coins. Each recurring concept uses the term mainstream papers use, each coinage is defined at first use, and each term reads the same in the prose, captions, tables, and figures. → SKILL.md, Terminology and Claims
 0b. **Precision pass.** Sentence by sentence, state what each content word denotes in this study, and replace any word whose field meaning differs, any figurative verb, any internal codebase term, and any condition label that misdescribes its manipulation. Passing every item below does not substitute for this pass. → SKILL.md, Precision; rewrites.md, Precision
 
 ## Words and punctuation

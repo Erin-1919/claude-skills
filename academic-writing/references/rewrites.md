@@ -134,6 +134,22 @@ Each pair below is a sentence the author rejected after it had passed the checkl
 | ... which makes a DGGS a foundation for geospatial software designed for these agents. | circumlocution for a named concept | ... which makes a DGGS a foundation for agent-friendly geospatial software. |
 | (Discussion) lets agents act, lets the grid provide | casual "let" constructions | allows, enables ... to, or the actor as subject |
 
+## Terminology: field terms for recurring concepts
+
+From the terminology audit of the GridMind manuscript (IJGIS, 2026). Each internal term was replaced by the term the literature uses, in the prose, captions, tables, and figures.
+
+| Internal or coined term | Field term | Reason |
+|---|---|---|
+| "action vocabulary" | "action space" | Standard term for the set of actions available to an LLM or RL agent |
+| "wake" (an agent's turn) | "activation" | Agent-based modelling term for when an agent runs; "wake" is code vocabulary |
+| "run store" | "event log" | Standard name for an append-only record of messages and state changes |
+| "typed state" | "structured state" | "Typed" suggests data types; the property is a fixed set of fields |
+| "policy" (standing instructions in the system prompt) | "role system prompt" | In agent research a policy is the decision function, which here is the LLM call |
+| "scenario package" | "domain application" | "Package" names a code module |
+| "multi-agent system" (hundreds of agents) | "large-scale multi-agent system" at first use | The field keeps "multi-agent system" at large scale and marks the scale with "large-scale" |
+
+Kept after the audit, each defined at first use: "runtime", "harness", "world event", the three channel names, and the condition names.
+
 ## Introduction: level of detail
 
 Before (implementation detail in an Introduction):
@@ -176,4 +192,4 @@ Before (self-critical, invites requests for new experiments): a list of what the
 
 After (scope stated softly, mapped one-to-one to future directions):
 
-> This study represents spatial features as points bound to the cells that contain them and coordinates responses at the resolution of grid cells. Environmental context ... informs a subset of agent decisions. The memory of each agent holds its typed state and recent messages within a single run. Future research will extend GridMind in these three respects. First, finer-grained features ... Second, each grid cell will integrate the environmental context of its area ... Third, memory management will extend the typed state toward a spatio-temporal memory ...
+> This study represents spatial features as points bound to the cells that contain them and coordinates responses at the resolution of grid cells. Environmental context ... informs a subset of agent decisions. The memory of each agent holds its structured state and recent messages within a single run. Future research will extend GridMind in these three respects. First, finer-grained features ... Second, each grid cell will integrate the environmental context of its area ... Third, memory management will extend the structured state toward a spatio-temporal memory ...
