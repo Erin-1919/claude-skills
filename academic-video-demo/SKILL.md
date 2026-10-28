@@ -1,6 +1,6 @@
 ---
 name: academic-video-demo
-description: Plan, build, render, and review an academic demo video, typically an animated explanatory introduction followed by a recorded demonstration of a research prototype (conference booth loops, demo-track videos, project showcases, supplementary videos). Covers the storyboard and on-screen text in academic register, HTML/GSAP intro scenes rendered frame by frame to 4K, off-screen recording of a live web app on a virtual clock, segmented renders so one fix re-renders one part, assembly with ffmpeg, a pre-hand-off review checklist, and a presenter narration script. Use when the user asks to make, script, storyboard, re-render, fix, or narrate such a video, or asks for an intro animation or screen-recording demo of their system.
+description: Use when making a research demo video, an animated explainer intro followed by a recorded run of the user's prototype (conference booth loop, demo-track or supplementary video), or when re-rendering, reviewing, or narrating one. Not for slide decks, posters, GIFs, plotted data animations, or editing existing footage.
 ---
 
 # Academic video demo
@@ -56,7 +56,7 @@ Report what was checked and the numbers (length, flash hits), with the stills yo
 
 ## Narration
 
-When a presenter talks over the video, write `NARRATION.md`: sections with times, each starting with a **cue** (what is on screen), then the lines. Conversational in transitions ("Let's start with", "So", "Now look at"), precise in technical terms (no "works out", "figures out"). Regenerate the section times whenever a part's length changes.
+When a presenter talks over the video, write `NARRATION.md`: a one-line pitch for visitors who arrive mid-video, then one section per part headed with its time range (`## Intro (0:00 to 1:08)`). Inside, each beat is a line `**Cue: <what is on screen>.**` followed by the lines to say as a `>` quote. Conversational in transitions ("Let's start with", "So", "Now look at"), precise in technical terms (no "works out", "figures out"). Regenerate the section times whenever a part's length changes.
 
 ## Bundled resources
 

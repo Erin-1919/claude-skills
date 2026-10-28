@@ -1,0 +1,389 @@
+{
+  "skill": "academic-video-demo",
+  "mode": "trigger",
+  "trials": 3,
+  "arms": {
+    "with_skill": [
+      {
+        "id": "happy-booth-plan",
+        "tags": [
+          "happy"
+        ],
+        "should_trigger": true,
+        "pass_rate": 1.0,
+        "trigger_rate": 1.0,
+        "failures": [],
+        "invoked": [
+          "academic-video-demo"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "happy-intro-animation",
+        "tags": [
+          "happy"
+        ],
+        "should_trigger": true,
+        "pass_rate": 1.0,
+        "trigger_rate": 1.0,
+        "failures": [],
+        "invoked": [
+          "academic-video-demo"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "happy-real-rerender",
+        "tags": [
+          "happy",
+          "prod-trace"
+        ],
+        "should_trigger": true,
+        "pass_rate": 1.0,
+        "trigger_rate": 1.0,
+        "failures": [],
+        "invoked": [
+          "academic-video-demo"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "happy-professional-demo",
+        "tags": [
+          "happy"
+        ],
+        "should_trigger": true,
+        "pass_rate": 1.0,
+        "trigger_rate": 1.0,
+        "failures": [],
+        "invoked": [
+          "academic-video-demo"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "happy-narration",
+        "tags": [
+          "happy",
+          "edge"
+        ],
+        "should_trigger": true,
+        "pass_rate": 1.0,
+        "trigger_rate": 1.0,
+        "failures": [],
+        "invoked": [
+          "academic-video-demo"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": true,
+            "invoked": [
+              "academic-video-demo"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "neg-slides",
+        "tags": [
+          "negative"
+        ],
+        "should_trigger": false,
+        "pass_rate": 1.0,
+        "trigger_rate": 0.0,
+        "failures": [],
+        "invoked": [
+          "pptx"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "pptx"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "pptx"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "pptx"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "neg-poster",
+        "tags": [
+          "negative"
+        ],
+        "should_trigger": false,
+        "pass_rate": 1.0,
+        "trigger_rate": 0.0,
+        "failures": [],
+        "invoked": [
+          "academic-poster"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "academic-poster"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "academic-poster"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "academic-poster"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "neg-gif",
+        "tags": [
+          "negative"
+        ],
+        "should_trigger": false,
+        "pass_rate": 1.0,
+        "trigger_rate": 0.0,
+        "failures": [],
+        "invoked": [
+          "slack-gif-creator"
+        ],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "slack-gif-creator"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "slack-gif-creator"
+            ]
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": [
+              "slack-gif-creator"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "neg-trim-video",
+        "tags": [
+          "negative",
+          "keyword-overlap"
+        ],
+        "should_trigger": false,
+        "pass_rate": 1.0,
+        "trigger_rate": 0.0,
+        "failures": [],
+        "invoked": [],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          }
+        ]
+      },
+      {
+        "id": "neg-matplotlib-anim",
+        "tags": [
+          "negative",
+          "keyword-overlap"
+        ],
+        "should_trigger": false,
+        "pass_rate": 1.0,
+        "trigger_rate": 0.0,
+        "failures": [],
+        "invoked": [],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          }
+        ]
+      },
+      {
+        "id": "neg-css",
+        "tags": [
+          "negative",
+          "unrelated"
+        ],
+        "should_trigger": false,
+        "pass_rate": 1.0,
+        "trigger_rate": 0.0,
+        "failures": [],
+        "invoked": [],
+        "trials_detail": [
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          },
+          {
+            "pass": true,
+            "loaded": false,
+            "invoked": []
+          }
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "with_skill": 1.0
+  }
+}

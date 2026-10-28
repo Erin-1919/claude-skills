@@ -1,0 +1,123 @@
+{
+  "skill": "academic-video-demo",
+  "cases": [
+    {
+      "id": "happy-booth-plan",
+      "prompt": "We got accepted to the demo track and I need a short video looping at our booth: first a bit that explains the idea, then the tool actually running. How should we go about making it?",
+      "tags": [
+        "happy"
+      ],
+      "should_trigger": true,
+      "expect": [
+        "storyboard",
+        "(headless|frame[- ]by[- ]frame|off[- ]screen|virtual clock)"
+      ]
+    },
+    {
+      "id": "happy-intro-animation",
+      "prompt": "can you make like a 1 minute animated intro for my supplementary video that explains how our grid works? after that I'll show the web app",
+      "tags": [
+        "happy"
+      ],
+      "should_trigger": true,
+      "expect": [
+        "\\?",
+        "(storyboard|shot)"
+      ],
+      "_note": "The skill opens with the design interview; pass = asks a question and plans by storyboard or shot (v1 regex expected render terms in the first reply)."
+    },
+    {
+      "id": "happy-real-rerender",
+      "prompt": "Do you always have to render the whole thing from scratch? Like, if I have an issue with just one specific part, why can't you just render that small section?",
+      "tags": [
+        "happy",
+        "prod-trace"
+      ],
+      "should_trigger": true,
+      "files": {
+        "video/README.md": "# Booth video\n\nAnimated intro (intro/intro.html) plus a headless recording of our web app (record/demo.mjs), assembled into booth_loop.mp4. Each render currently records the whole demo in one pass (about 20 minutes).\n"
+      },
+      "expect": [
+        "segment"
+      ]
+    },
+    {
+      "id": "happy-professional-demo",
+      "prompt": "The reviewers asked for a 3 minute video of our prototype. I want it to look polished and academic, not a shaky screen capture with a mouse wandering around. Plan it out for me.",
+      "tags": [
+        "happy"
+      ],
+      "should_trigger": true,
+      "expect": [
+        "storyboard",
+        "caption"
+      ]
+    },
+    {
+      "id": "happy-narration",
+      "prompt": "write what I should say while the booth video plays, I'll talk over it",
+      "tags": [
+        "happy",
+        "edge"
+      ],
+      "should_trigger": true,
+      "files": {
+        "video/DESIGN.md": "# Booth video\n\n| Shot | Length | Content | Caption |\n|---|---|---|---|\n| A1 Title | 6 s | Title, authors, logos | none |\n| A2 Problem | 11 s | LLM misjudges the distance between two wells | LLMs infer spatial relations unreliably from coordinates |\n| A3 Method | 22 s | The DGGS grid and cell IDs | The DGGS grounds spatial relations in cell IDs |\n| B Demo | 130 s | The web app replays methane plumes and agents attribute them | Each plume is routed to the grid agent that contains it |\n"
+      },
+      "expect": [
+        "\\*\\*Cue:"
+      ]
+    },
+    {
+      "id": "neg-slides",
+      "prompt": "Make me a slide deck for my 15 minute conference talk on the grid agents paper.",
+      "tags": [
+        "negative"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-poster",
+      "prompt": "I need a poster for the demo session, A0, from the paper.",
+      "tags": [
+        "negative"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-gif",
+      "prompt": "make a little animated gif of our app for the team slack channel",
+      "tags": [
+        "negative"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-trim-video",
+      "prompt": "Cut the first 10 seconds off recording.mp4 and burn in the subtitles from subs.srt.",
+      "tags": [
+        "negative",
+        "keyword-overlap"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-matplotlib-anim",
+      "prompt": "Turn my matplotlib plot of training loss over epochs into an mp4 animation for the paper's supplementary material.",
+      "tags": [
+        "negative",
+        "keyword-overlap"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": "neg-css",
+      "prompt": "The map panel in my web app overlaps the timeline when the window is narrow. Fix the CSS.",
+      "tags": [
+        "negative",
+        "unrelated"
+      ],
+      "should_trigger": false
+    }
+  ]
+}
