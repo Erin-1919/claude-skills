@@ -1,0 +1,76 @@
+<!doctype html>
+<!-- Animated scene template for render_scene.mjs: one paused GSAP timeline that the renderer seeks frame by frame.
+     Copy this file and gsap.min.js into the project's video folder; keep the 1920x1080 stage and the seek/sceneReady contract.
+     Fonts: load local woff2 files with @font-face (file:// pages cannot rely on web fonts), then await document.fonts.ready. -->
+<html lang="en"><head><meta charset="utf-8"><title>Intro</title>
+<script src="gsap.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1b2a; --surface: #16263a; --line: #2a4560; --ink: #f4f7fa; --muted: #9fb3c8;
+    --accent: #0d9488; --accent-bright: #2dd4bf;
+    --font: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  .stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  .eyebrow { position: absolute; left: 160px; top: 96px; font: 600 26px/1 var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-bright); }
+  /* the lower-third caption: one line per shot, unique to the shot, readable from 2 m */
+  .caption { position: absolute; left: 96px; bottom: 72px; max-width: 1560px; padding: 22px 36px 24px 32px; opacity: 0;
+    border-left: 6px solid var(--accent); background: rgba(22,38,58,.88); font: 600 44px/1.25 var(--font); box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+  .t-title { position: absolute; left: 156px; top: 300px; margin: 0; font: 700 160px/1 var(--font); letter-spacing: -.035em; }
+  .t-sub { position: absolute; left: 160px; top: 490px; font: 500 52px/1.2 var(--font); }
+  .p-head { position: absolute; left: 160px; top: 140px; font: 600 56px/1.15 var(--font); }
+  .p-head b { color: var(--accent-bright); font-weight: 600; }
+  .p-body { position: absolute; left: 160px; top: 300px; width: 1100px; font: 400 36px/1.4 var(--font); color: var(--muted); }
+  #fade { position: absolute; inset: 0; background: var(--bg); opacity: 0; }
+</style>
+</head><body>
+<div class="stage">
+  <section class="scene" id="s1">
+    <div class="eyebrow">Venue, track, and paper ID</div>
+    <h1 class="t-title">Title</h1>
+    <div class="t-sub">Subtitle in the paper's wording</div>
+  </section>
+  <section class="scene" id="s2">
+    <div class="eyebrow">The problem</div>
+    <div class="p-head">Lead with the framing: <b>the key claim</b></div>
+    <div class="p-body" id="p1">One concrete example that shows the problem, built up step by step.</div>
+  </section>
+  <div class="caption" id="cap"></div>
+  <div id="fade"></div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const E = "power2.inOut", OUT = "power3.out";
+
+// Scene windows in seconds, and one caption per shot (none on the title). Keep all times here or next to their tweens,
+// so a later insertion shifts every time after it by the same amount.
+const SCENES = [["#s1", 0, 6], ["#s2", 6, 14]];
+const CAPTIONS = [[6.3, 13.6, "One sentence that names what this shot shows"]];
+const DURATION = 14;
+
+for (const [sel, a, b] of SCENES) {
+  tl.to(sel, { opacity: 1, duration: 0.6, ease: E }, a);
+  if (b < DURATION) tl.to(sel, { opacity: 0, duration: 0.6, ease: E }, b - 0.6);
+}
+tl.from(".t-title", { opacity: 0, y: 40, duration: 1.0, ease: OUT }, 0.5)
+  .from(".t-sub", { opacity: 0, y: 24, duration: 0.9, ease: OUT }, 0.9)
+  .from(".p-head", { opacity: 0, y: 20, duration: 0.8, ease: OUT }, 6.4)
+  .from("#p1", { opacity: 0, y: 24, duration: 0.7, ease: OUT }, 7.6)
+  .to("#fade", { opacity: 1, duration: 0.9, ease: E }, DURATION - 0.9);   // ends on the background colour, ready to cut
+
+function drawCaption(t) {
+  const cap = document.getElementById("cap");
+  const c = CAPTIONS.find(([a, b]) => t >= a && t <= b);
+  if (!c) { cap.style.opacity = 0; return; }
+  const [a, b, text] = c;
+  if (cap.textContent !== text) cap.textContent = text;
+  const k = Math.min(1, (t - a) / 0.5, (b - t) / 0.5);
+  cap.style.opacity = k;
+  cap.style.transform = `translateY(${(1 - k) * 16}px)`;
+}
+// Canvas drawings (procedural diagrams, particles) are drawn from t inside seek, never from requestAnimationFrame.
+window.seek = (t) => { tl.seek(t, false); drawCaption(t); };
+window.sceneReady = Promise.all([document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => {}))]);
+</script>
+</body></html>
