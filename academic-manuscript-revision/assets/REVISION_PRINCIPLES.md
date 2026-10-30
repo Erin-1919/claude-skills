@@ -51,7 +51,13 @@ a round and edit the bracketed parts for the project.
 - The author's hand edits are authoritative. Mirror them back into the answers file; never
   regenerate over them.
 - Every quoted passage must exist in the manuscript. Verify after every round of edits.
-- Write the editor page and the per-reviewer summaries last.
+- Answer the concern behind each comment in the first sentence. Keep only the details
+  that carry the answer. Paragraphs only, no lists or tables, no defensive explanations.
+- Raise nothing the reviewer did not raise, such as a comparison with another system.
+- A reviewer with no remaining objections gets one sentence of thanks.
+- Write the editor page and the per-reviewer summaries last. The editor page is in the
+  body colour, states the manuscript is within the length limit without word counts, and
+  names only the file that carries tracked changes.
 
 ## Recording
 

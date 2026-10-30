@@ -37,6 +37,24 @@ verify later that no marker survives.
 `set_text` is only safe when every run shares one format. Check `uniform(paragraph)` first.
 Author blocks, table footnotes and anything with superscripts usually fail that test.
 
+## Rebuilding a paragraph keeps its first run's format
+
+To replace a whole paragraph of mixed runs, keep `w:pPr`, remove the other children, add
+one run with the text, and deep-copy the first run's `w:rPr` into it. Never apply this to a
+paragraph holding OMML, which the rebuild would delete.
+
+## Direct formatting outlives style changes
+
+A heading promoted from level 2 to level 1 keeps the italic or size set directly on its
+runs and paragraph mark. Compare its run `w:rPr` with a sibling heading's, and copy the
+sibling's over both. The style name alone tells you nothing.
+
+## Inserted lists inherit the body indent
+
+A numbered list added with the List Paragraph style picks up any first-line indent defined
+on Normal (`w:firstLine`, `w:firstLineChars`), which pushes the number far right. Set
+`w:ind` on each item explicitly: `left="360" hanging="360" firstLineChars="0"`.
+
 ## Locate by content, never by index
 
 Paragraph indices shift the moment anything is inserted. Find the target by a distinctive

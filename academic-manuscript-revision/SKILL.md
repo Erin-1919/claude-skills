@@ -24,6 +24,9 @@ These hold throughout and override any local convenience.
 6. **One item at a time.** Finish, record, then start the next.
 7. **Every change lands in every parallel copy** — manuscript, supplementary, and the
    anonymised copy of each — in the same session.
+8. **Answer reviewers directly.** Each response leads with the answer to the concern
+   behind the comment, keeps only the details that carry it, and uses short paragraphs,
+   never lists or tables. See `references/response-letter.md`.
 
 ## Setup, once per revision round
 
@@ -114,6 +117,16 @@ For each item, in plan order:
 5. Record the item: `python $S/plan_status.py --done C7 --record-file note.md --write`.
 6. Re-run the checks below.
 
+When a comment asks for clearer contribution or significance, the fix is usually structural:
+
+- **Related Work** organized around what prior work did, what it did not, and the gaps
+  the contributions answer. Do not put sentences about the authors' own system inside it,
+  and do not compare against systems nobody asked about.
+- **Discussion** that separates scientific meaning (what the approach enables, where errors
+  arise, who uses it) from engineering explanation, under descriptive headings.
+- **Conclusions** that state findings as answers without restating the numbers already in
+  the abstract and Results. Confirm this with the author, since some prefer the numbers.
+
 Apply every change to **all** the documents in `revision.json` in the same session, not
 just the one being read. Never revise the manuscript and leave its anonymised copy for
 later.
@@ -173,8 +186,14 @@ removed or whether a citation to it went missing.
 
 1. Language, numbering and markup pass: equation, table and figure numbering against their
    cross-references; abbreviations at first use; leftover markers; consistent ranges and
-   spacing.
-2. **Audit the manuscript after the author's own pass.** The author reads the whole
+   spacing. Include a concision pass for wordy "of" chains and participial tails, then
+   re-sync every letter quote.
+2. **Sweep the supplementary as its own document.** After restructuring the main text,
+   check its references to main-text sections, its claims against the data, and its
+   formatting: headings with leftover direct formatting, empty paragraphs, merged short
+   paragraphs. Check that each main-text pointer describes what the supplementary actually
+   contains ("Table S1 characterizes the single-turn queries", not "each suite").
+3. **Audit the manuscript after the author's own pass.** The author reads the whole
    document at the end and edits it in Word, for concision, language, or length. That pass
    is not tracked and it deletes things. Walk the plan item by item and confirm each item's
    recorded text is still in the manuscript. In a live round this is what caught a sentence
@@ -182,9 +201,9 @@ removed or whether a citation to it went missing.
    and two cross-references left pointing at the old numbering. Then re-sync the letter:
    `verify_letter.py` will report every quote the pass reworded. Run the audit after **any**
    author pass, not only the last one, and record what it recovered.
-3. Write the editor page and the per-reviewer summaries, last, against the finished
+4. Write the editor page and the per-reviewer summaries, last, against the finished
    manuscript. Each summary says what the revision does for *that reviewer's* comments.
-4. Produce the comparison baselines and hand over:
+5. Produce the comparison baselines and hand over:
 
 ```bash
 python $S/flatten_endnote.py --baseline --write
