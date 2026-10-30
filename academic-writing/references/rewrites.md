@@ -133,6 +133,13 @@ Each pair below is a sentence the author rejected after it had passed the checkl
 | In GIScience, autonomous GIS has begun ... | "GIScience" used after GIS was defined as Geographic Information Science | the defined abbreviation, GIS, or a rephrase |
 | ... which makes a DGGS a foundation for geospatial software designed for these agents. | circumlocution for a named concept | ... which makes a DGGS a foundation for agent-friendly geospatial software. |
 | (Discussion) lets agents act, lets the grid provide | casual "let" constructions | allows, enables ... to, or the actor as subject |
+| The year, sector, and code fields instantiate the temporal and thematic dimensions | fancy verb where a plain one exists | The year, sector, and code fields represent the temporal and thematic dimensions |
+| 3.1 Data model and system overview | "data model" is reserved in GIScience for vector/raster and object/field models | 3.1 DGGS-indexed data and system overview |
+| without a persistent checkpointer; bypass geo-resolution | framework-internal and codebase terms | carries a lightweight conversational state between turns; skip geospatial grounding |
+| an LLM-as-judge quality gate ... rather than an independent correctness oracle | software jargon plus a defensive contrast | an LLM-as-judge between response generation and final output that uses the same evidence available to the system |
+| 35 queries enumerate over the spatial dimension | opaque abstraction for a countable property | 35 queries return values for several locations or cells |
+| the gap reflects the full engineering stack; expose operations as tools; contributes recovery | software jargon; odd verb | the design as a whole; provide operations as agent tools; enables recovery |
+| Each question constrains spatial, temporal, and thematic extents | indirect verb | Each question specifies spatial, temporal, and thematic extents |
 
 ## Terminology: field terms for recurring concepts
 
